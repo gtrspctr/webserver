@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from flask import Flask
-from views import views
+from website.views import views
+from website import create_app
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
