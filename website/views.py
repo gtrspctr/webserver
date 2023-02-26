@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 
-views = Blueprint(__name__, "views")
+views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
-    #return render_template("index.html")
-    return "<h1>TEST</h1>"
+    return render_template("index.html")
+    #return "<h1>TEST</h1>"
 
 @views.route("/")
 @views.route("/<first>")
