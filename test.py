@@ -32,4 +32,4 @@ input()
 
 response = requests.get(BASE + "video/3")
 print("Get:")
-print(response, response.text)
+print(response, response.json())

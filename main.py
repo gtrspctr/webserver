@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #from flask import request
-from flask_restful import Api, Resource, reqparse, abort
+from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
+from flask_sqlalchemy import SQLAlchemy
 from website import create_app
 import json
 
@@ -9,20 +10,18 @@ video_put_args.add_argument("name", type=str, help="Name of the video is require
 video_put_args.add_argument("views", type=int, help="Views of the video is required.", required=True)
 video_put_args.add_argument("likes", type=int, help="Likes of the video is required.", required=True)
 
-videos = {}
-
-def abort_if_video_id_not_in_videos(video_id):
-    if video_id not in videos:
-        abort(404, message="Video ID is not valid.")
-
-def abort_if_video_id_in_videos(video_id):
-    if video_id in videos:
-        abort(409, message="Video already exists with that ID.")
+resource_fields = {
+    "id": fields.Integer,
+    "name": fields.String,
+    "views": fields.Integer,
+    "likes": fields.Integer
+}
 
 class Video(Resource):
+    @marshal_with(resource_fields)
     def get(self, video_id):
-        abort_if_video_id_not_in_videos(video_id)
-        return videos[video_id]
+        result = VideoModel.query.get(id=video_id)
+        return result
     
     def put(self, video_id):
         abort_if_video_id_in_videos(video_id)
@@ -56,6 +55,19 @@ app = create_app()
 # Create API
 api = Api(app)
 api.add_resource(Video, "/video/<int:video_id>")
+
+# Create Database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+
+class VideoModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    views = db.Column(db.Integer, nullable=False)
+    likes = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Video(name={name}, views={views}, likes={likes})"
 
 # Run webserver
 if __name__ == "__main__":
