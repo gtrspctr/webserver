@@ -1,4 +1,5 @@
 import requests
+import json
 
 BASE = "http://127.0.0.1:8000/"
 headers = {"accept": "application/json"}
@@ -24,11 +25,6 @@ print(response.json())
 response = requests.put(BASE + "video/1", json={"name": "Walrus Ahead", "views": 9999999, "likes": 9999998})
 print(response.json())
 input() """
-
-response = requests.delete(BASE + "video/2")
-print("Delete:")
-print(response, response.text)
-input()
 
 response = requests.get(BASE + "video/3")
 print("Get:")

@@ -23,16 +23,23 @@ class Video(Resource):
         result = VideoModel.query.get(id=video_id)
         return result
     
+    @marshal_with(resource_fields)
     def put(self, video_id):
-        abort_if_video_id_in_videos(video_id)
         args = video_put_args.parse_args()
-        videos[video_id] = args
-        return videos[video_id], 201
+        video = VideoModel(
+            id=video_id,
+            name=args["name"],
+            views=args["views"],
+            likes=args["likes"]
+        )
+        db.session.add(video)
+        db.session.commit()
+        return video, 201
     
     def delete(self, video_id):
         abort_if_video_id_not_in_videos(video_id)
         del videos[video_id]
-        return "Deleted " + str(video_id), 204
+        return video, 201
 
 """
 with open("./users_data", "r") as infile:
@@ -59,6 +66,8 @@ api.add_resource(Video, "/video/<int:video_id>")
 # Create Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+with app.app_context():
+    db.create_all()
 
 class VideoModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
