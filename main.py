@@ -4,6 +4,13 @@ from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
 from website import create_app
 import json
+from os import path
+
+# Define directory
+current_dir = path.dirname(__file__)
+db_dir = path.join(current_dir, "database")
+db_path = path.join(db_dir, "database.db")
+db_uri = "sqlite:///{}".format(db_path)
 
 video_put_args = reqparse.RequestParser()
 video_put_args.add_argument("name", type=str, help="Name of the video is required.", required=True)
@@ -20,7 +27,7 @@ resource_fields = {
 class Video(Resource):
     @marshal_with(resource_fields)
     def get(self, video_id):
-        result = VideoModel.query.get(id=video_id)
+        result = VideoModel.query.filter_by(id=video_id).first()
         return result
     
     @marshal_with(resource_fields)
@@ -64,10 +71,9 @@ api = Api(app)
 api.add_resource(Video, "/video/<int:video_id>")
 
 # Create Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 db = SQLAlchemy(app)
-with app.app_context():
-    db.create_all()
+
 
 class VideoModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -77,6 +83,9 @@ class VideoModel(db.Model):
 
     def __repr__(self):
         return f"Video(name={name}, views={views}, likes={likes})"
+
+#with app.app_context():
+#    db.create_all()
 
 # Run webserver
 if __name__ == "__main__":
