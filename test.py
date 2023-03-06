@@ -10,12 +10,14 @@ data = [
     {"name": "Look, It's A Bird!", "views": 65468, "likes": 897},
     {"name": "Walrus Ahead", "views": 9999999, "likes": 9999998}
 ]
-print(len(data))
 
-#for i in range(len(data)):
-#    print(data[i])
-#    response = requests.put(BASE + "video/" + str(i), json=data[i])
-#    print(response, response.json())
+for i in range(len(data)):
+    response = requests.put(BASE + "video/" + str(i), json=data[i])
+    print(response, response.json())
+input()
+
+#response = requests.patch(BASE + "video/2", json={"name": "Updated Name!"})
+#print(response.json())
 #input()
 
 """ response = requests.put(BASE + "video/1", json={"name": "Poopy!", "views": 37, "likes": 10})
@@ -28,6 +30,7 @@ response = requests.put(BASE + "video/1", json={"name": "Walrus Ahead", "views":
 print(response.json())
 input() """
 
-response = requests.get(BASE + "video/3")
+response = requests.get(BASE + "video/2")
 print("Get:")
-print(response, response.json())
+print(response.json())
+print()

@@ -12,10 +12,17 @@ db_dir = path.join(current_dir, "database")
 db_path = path.join(db_dir, "database.db")
 db_uri = "sqlite:///{}".format(db_path)
 
+# Request parser for PUT method
 video_put_args = reqparse.RequestParser()
 video_put_args.add_argument("name", type=str, help="Name of the video is required.", required=True)
 video_put_args.add_argument("views", type=int, help="Views of the video is required.", required=True)
 video_put_args.add_argument("likes", type=int, help="Likes of the video is required.", required=True)
+
+# Request parser for PATCH method
+video_patch_args = reqparse.RequestParser()
+video_patch_args.add_argument("name", type=str, help="Name of the video is required.")
+video_patch_args.add_argument("views", type=int, help="Views of the video is required.")
+video_patch_args.add_argument("likes", type=int, help="Likes of the video is required.")
 
 resource_fields = {
     "id": fields.Integer,
@@ -28,11 +35,16 @@ class Video(Resource):
     @marshal_with(resource_fields)
     def get(self, video_id):
         result = VideoModel.query.filter_by(id=video_id).first()
+        if not result:
+            abort(404, message="Video ID does not exist in database.")
         return result
     
     @marshal_with(resource_fields)
     def put(self, video_id):
         args = video_put_args.parse_args()
+        result = VideoModel.query.filter_by(id=video_id).first()
+        if result:
+            abort(409, message="Video ID already exists in database.")
         video = VideoModel(
             id=video_id,
             name=args["name"],
@@ -42,6 +54,23 @@ class Video(Resource):
         db.session.add(video)
         db.session.commit()
         return video, 201
+    
+    @marshal_with(resource_fields)
+    def patch(self, video_id):
+        args = video_patch_args.parse_args()
+        result = VideoModel.query.filter_by(id=video_id).first()
+        if not result:
+            abort(404, message="Video ID does not exist. Unable to PATCH.")
+        
+        if args["name"]:
+            result.name = args["name"]
+        if args["views"]:
+            result.views = args["views"]
+        if args["likes"]:
+            result.likes = args["likes"]
+
+        db.session.commit()
+        return result
     
     def delete(self, video_id):
         abort_if_video_id_not_in_videos(video_id)
