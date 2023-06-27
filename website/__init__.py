@@ -11,7 +11,7 @@ class HelloWorld(Resource):
         return "Hello!"
 """
 db = SQLAlchemy()
-DB_NAME = "alrobison.db"
+DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
