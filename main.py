@@ -100,10 +100,10 @@ api = Api(app)
 api.add_resource(Video, "/video/<int:video_id>")
 
 # Create Database
-app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-db = SQLAlchemy(app)
+#app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+#db = SQLAlchemy(app)
 
-
+"""
 class VideoModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -112,7 +112,7 @@ class VideoModel(db.Model):
 
     def __repr__(self):
         return f"Video(name={name}, views={views}, likes={likes})"
-
+"""
 #with app.app_context():
 #    db.create_all()
 
