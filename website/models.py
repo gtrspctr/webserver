@@ -2,6 +2,7 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+"""
 class Note(db.Model):
     Id = db.Column(db.Integer, primary_key=True)
     Data = db.Column(db.String(10000))
@@ -20,3 +21,10 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.FirstName}', '{self.LastName}', '{self.Email}')"
     
+"""
+
+class RemoteRequests(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String(15), nullable=False)
+    method = db.Column(db.String(7), nullable=False)
+    agent = db.Column(db.String(256), nullable=False)

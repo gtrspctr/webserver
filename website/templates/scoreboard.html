@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+    alrobison.com
+{% endblock %}
+
+{% block content %}
+    <center>
+        <h1 style='color:green'>Here is a scoreboard for everyone who has visited this site!</h1>
+    </center>
+    <div>
+        <table>
+            <caption>
+                SCOREBOARD
+            </caption>
+
+            <tr>
+                <th style="text-align: center">Count</th>
+                <th style="text-align: center">IP</th>
+                <th style="text-align: center">Location</th>
+                <th style="text-align: center">Method</th>
+                <th style="text-align: center">Agent</th>
+            </tr>
+            <tr>
+                <td style="text-align: center" data-cell="count">10</td>
+                <td style="text-align: center" data-cell="ip">1.1.1.1</td>
+                <td style="text-align: center" data-cell="location">USA</td>
+                <td style="text-align: center" data-cell="method">GET</td>
+                <td style="text-align: center" data-cell="agent">curl</td>
+            </tr>
+            <tr>
+                <td style="text-align: center" data-cell="count">8</td>
+                <td style="text-align: center" data-cell="ip">9.9.9.9</td>
+                <td style="text-align: center" data-cell="location">China</td>
+                <td style="text-align: center" data-cell="method">HEAD</td>
+                <td style="text-align: center" data-cell="agent">curl</td>
+            </tr>
+            <tr>
+                <td style="text-align: center" data-cell="count">7</td>
+                <td style="text-align: center" data-cell="ip">123.234.210.123</td>
+                <td style="text-align: center" data-cell="location">Russia</td>
+                <td style="text-align: center" data-cell="method">GET</td>
+                <td style="text-align: center" data-cell="agent">Chrome</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
