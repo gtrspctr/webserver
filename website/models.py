@@ -1,5 +1,5 @@
 from . import db
-from flask_login import UserMixin
+#from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 """
@@ -30,4 +30,12 @@ class RemoteRequest(db.Model):
     agent = db.Column(db.String(256), nullable=False)
 
     def __repr__(self):
-        return '<RemoteRequest %r>' % self.ip
+        return f"RemoteRequest('{self.ip}')"
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "ip": self.ip,
+            "method": self.method,
+            "agent": self.agent
+        }
