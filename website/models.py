@@ -23,8 +23,11 @@ class User(db.Model, UserMixin):
     
 """
 
-class RemoteRequests(db.Model):
+class RemoteRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ip = db.Column(db.String(15), nullable=False)
     method = db.Column(db.String(7), nullable=False)
     agent = db.Column(db.String(256), nullable=False)
+
+    def __repr__(self):
+        return '<RemoteRequest %r>' % self.ip
