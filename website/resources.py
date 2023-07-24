@@ -56,24 +56,27 @@ class RemoteRequests(Resource):
         
     def put(self, req_id):
         # PUT: replace resource
-        id = RemoteRequest.query.get(req_id)
 
         # Check if ID exists in db
+        id = RemoteRequest.query.get(req_id)
         if id:
             # ID exists. Parse data.
             parser = reqparse.RequestParser()
-            parser.add_argument("ip", type=str, required=True, help="Enter IP as a string.")
-            parser.add_argument("method", type=str, required=True, help="Enter method as a string.")
-            parser.add_argument("agent", type=str, required=True, help="Enter agent as a string.")
+            parser.add_argument("ip", type=str, required=False, help="Enter IP as a string.")
+            parser.add_argument("method", type=str, required=False, help="Enter method as a string.")
+            parser.add_argument("agent", type=str, required=False, help="Enter agent as a string.")
             args = parser.parse_args()
 
             # Submit new request data to database
             self.submit_info()
 
             # Commit to db
-            id.ip = args["ip"]
-            id.method = args["method"]
-            id.agent = args["agent"]
+            if args.get("ip"):
+                id.ip = args["ip"]
+            if args.get("method"):
+                id.method = args["method"]
+            if args.get("agent"):
+                id.agent = args["agent"]
             db.session.commit()
 
             return {"message": "Fields replaced on ID: " + str(req_id)}, 200
@@ -82,9 +85,9 @@ class RemoteRequests(Resource):
 
     def patch(self, req_id):
         # PATCH: update resource
-        id = RemoteRequest.query.get(req_id)
 
         # Check if ID exists in db
+        id = RemoteRequest.query.get(req_id)
         if id:
             # ID exists. Parse data.
             parser = reqparse.RequestParser()
