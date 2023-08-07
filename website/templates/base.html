@@ -5,9 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
-        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}" />
     </head>
-    <body style='background-color:gray'>
+    <body>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -30,11 +31,23 @@
             {% endif %}
         {% endwith %}
 
-        <div class="container">
-            {% block content %}{% endblock %}
-        </div>
-        <div id="footer">
-            &copy; Copyright 2023 by Al Robison.
+        <div id="page_container">
+            <header>
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" width=80 height=80 />
+                <nav class="top_nav">
+                    <ul>
+                        {% block top_nav %}{% endblock %}
+                    </ul>
+                </nav>
+            </header>
+            <div id="top_splitter">
+            </div>
+            <div id="content_wrap">
+                {% block content %}{% endblock %}
+            </div>
+            <footer id="footer">
+                &copy; Copyright 2023 by Al Robison.
+            </footer>
         </div>
     </body>
 </html>

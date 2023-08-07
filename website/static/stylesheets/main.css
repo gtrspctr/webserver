@@ -1,0 +1,154 @@
+/* General appearance */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: green;
+    background-color: black;
+    margin: 0;
+}
+
+h1 {
+    color: green;
+}
+
+p {
+    color: green;
+    margin-left: 20px;
+}
+
+
+/* Container: page_container */
+#page_container {
+    position: relative;
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+
+/* Header / Logo / Navbar */
+header {
+    background-color: #1d1d1d;
+    font-family: Andale Mono, monospace;
+    width: 100%;
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.logo {
+    float: left;
+    padding: 10px 10px;
+}
+
+.top_nav {
+    overflow: hidden;
+}
+
+.top_nav ul {
+    overflow: hidden;
+    float: right;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.top_nav ul li {
+    display: inline-block;
+    padding-top: 23px;
+    position: relative;
+}
+
+.top_nav a {
+    float: right;
+    color: green;
+    text-align: center;
+    padding: 14px 10px;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 35px;
+}
+
+.top_nav a.active {
+    color: green;
+    font-weight: bold;
+}
+
+.top_nav a:hover {
+    color: white;
+}
+
+.top_nav a::before {
+    content: '';
+    display: block;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    height: 5px;
+    width: 0%;
+    transition: all ease-in-out 200ms;
+}
+
+.top_nav a:hover::before {
+    width: 100%;
+}
+
+
+/* Container: top_splitter */
+#top_splitter {
+    padding-top: 10px;
+}
+
+
+/* Container: content_wrap  */
+#content_wrap {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 2.5rem;
+}
+
+
+/* Container: footer */
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    height: 2.5rem;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Table: scoreboard */
+#scoreboard {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 90%;
+    color: green;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid green;
+}
+
+#scoreboard caption {
+    border: 1px green;
+    padding: 8px;
+}
+
+#scoreboard td, #scoreboard th {
+    border: 1px solid green;
+    padding: 8px;
+}
+
+#scoreboard tr:nth-child(even){background-color: #1d1d1d;}
+
+#scoreboard tr:hover {background-color: #22003a}
+
+#scoreboard th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #22003a;
+    color: white;
+}
