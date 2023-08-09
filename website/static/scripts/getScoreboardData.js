@@ -4,12 +4,14 @@ var myArray = [
     {'count': '7', 'ip': '102.21.2.33', 'location': 'China', 'method': 'GET', 'agent': 'iPhone'}
 ]
 
-var apiUrl = 'api/requests'
-var geoIpUrlPrefix = 'https://api.geoiplookup.net/?query='
-var geoIpUrlSuffix = '&json=true'
+var apiUrl = 'api/requests';
+var geoIpUrlPrefix = 'https://api.geoiplookup.net/?query=';
+var geoIpUrlSuffix = '&json=true';
 
-getRequestCountryCode()
-getTableData()
+var sortDirection = false;
+
+//getRequestCountryCode();
+fetchDataAndInject();
 
 function getRequestCountryCode() {
     /* GOOD
@@ -30,66 +32,103 @@ function getRequestCountryCode() {
     */
 }
 
-function getTableData() {
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            var ipData = {};
+async function fetchDataAndInject() {
+    try {
+        var gotData = await getScoreboardData();
+        //console.log("Data: ", gotData);
+        injectScoreboardData(gotData);
+    } catch (error) {
+        console.error('Error: ', error);
+    }
+}
 
-            data.forEach(entry => {
-                // Parse agent and replace with smaller description
-                //var agent_type = entry.ip;
-                if (entry.agent.includes("Googlebot")) {
-                    entry.agent = "Googlebot";
-                } else if (entry.agent.includes("HeadlessChrome")) {
-                    entry.agent = "HeadlessChrome";
-                } else if (entry.agent.includes("Android")) {
-                    entry.agent = "Android";
-                } else if (entry.agent.includes("iPhone" )) {
-                    entry.agent = "iPhone";
-                } else if (entry.agent.includes("iPad")) {
-                    entry.agent = "iPad";
-                } else if (entry.agent.includes("Windows Phone")) {
-                    entry.agent = "Windows Phone";
-                } else if (entry.agent.includes("Windows NT")) {
-                    entry.agent = "Windows NT";
-                } else if (entry.agent.includes("CrOS")) {
-                    entry.agent = "Chrome OS";
-                } else if (entry.agent.includes("Macintosh")) {
-                    entry.agent = "MacOS";
-                } else if (entry.agent.includes("Ubuntu")) {
-                    entry.agent = "Ubuntu";
-                }
+async function getScoreboardData() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-                // Merge IPs into one entry and get a count of each
-                var ip = entry.ip;
-                if (!ipData[ip]) {
-                    ipData[ip] = {
-                        count: 1,
-                        location: entry.location,
-                        method: entry.method,
-                        agent: entry.agent
-                    };
-                } else {
-                    ipData[ip].count += 1;
-                }
-            });
+        var ipData = {};
 
-            var table = document.getElementById('myTable')
-            for (var ip in ipData) {
-                if (ipData.hasOwnProperty(ip)) {
-                    var row = `<tr>
-                               <td>${ipData[ip].count}</td>
-                               <td>${ip}</td>
-                               <td>${ipData[ip].location}</td>
-                               <td>${ipData[ip].method}</td>
-                               <td>${ipData[ip].agent}</td>
-                           </tr>`;
-                    table.innerHTML += row;
-                }
+        data.forEach(entry => {
+            // Parse agent and replace with smaller description
+            if (entry.agent.includes("Googlebot")) {
+                entry.agent = "Googlebot";
+            } else if (entry.agent.includes("HeadlessChrome")) {
+                entry.agent = "HeadlessChrome";
+            } else if (entry.agent.includes("Android")) {
+                entry.agent = "Android";
+            } else if (entry.agent.includes("iPhone" )) {
+                entry.agent = "iPhone";
+            } else if (entry.agent.includes("iPad")) {
+                entry.agent = "iPad";
+            } else if (entry.agent.includes("Windows Phone")) {
+                entry.agent = "Windows Phone";
+            } else if (entry.agent.includes("Windows NT")) {
+                entry.agent = "Windows NT";
+            } else if (entry.agent.includes("CrOS")) {
+                entry.agent = "Chrome OS";
+            } else if (entry.agent.includes("Macintosh")) {
+                entry.agent = "MacOS";
+            } else if (entry.agent.includes("Ubuntu")) {
+                entry.agent = "Ubuntu";
             }
-        })
-        .catch(error => {
-            console.error('Error fetching data: ', error)
-        })
+
+            // Merge IPs into one entry and get a count of each
+            var ip = entry.ip;
+            if (!ipData[ip]) {
+                ipData[ip] = {
+                    count: 1,
+                    location: entry.location,
+                    method: entry.method,
+                    agent: entry.agent
+                };
+            } else {
+                ipData[ip].count += 1;
+            }
+        });
+
+        return ipData;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+function injectScoreboardData(data) {
+    const scoreboardTableBody = document.getElementById('scoreboardTableBody')
+    let dataHtml = '';
+
+    for (var ip in data) {
+        if (data.hasOwnProperty(ip)) {
+            /*
+            var row = `<tr>
+                           <td>${ipData[ip].count}</td>
+                           <td>${ip}</td>
+                           <td>${ipData[ip].location}</td>
+                           <td>${ipData[ip].method}</td>
+                           <td>${ipData[ip].agent}</td>
+                       </tr>`;
+            scoreboardTableBody.innerHTML += row;
+            */
+            dataHtml += `<tr>
+                            <td>${data[ip].count}</td>
+                            <td>${ip}</td>
+                            <td>${data[ip].location}</td>
+                            <td>${data[ip].method}</td>
+                            <td>${data[ip].agent}</td>
+                        </tr>`;
+        }
+        
+    }
+    //console.log(dataHtml)
+    scoreboardTableBody.innerHTML = dataHtml;
+}
+
+function sortColumn(column) {
+    const dataType = typeof column;
+    console.log("Clicked!")
+    
+    sortDirection = !sortDirection;
+
+    //switch()
 }
