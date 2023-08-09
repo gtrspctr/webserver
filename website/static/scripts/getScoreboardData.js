@@ -37,6 +37,31 @@ function getTableData() {
             var ipData = {};
 
             data.forEach(entry => {
+                // Parse agent and replace with smaller description
+                //var agent_type = entry.ip;
+                if (entry.agent.includes("Googlebot")) {
+                    entry.agent = "Googlebot";
+                } else if (entry.agent.includes("HeadlessChrome")) {
+                    entry.agent = "HeadlessChrome";
+                } else if (entry.agent.includes("Android")) {
+                    entry.agent = "Android";
+                } else if (entry.agent.includes("iPhone" )) {
+                    entry.agent = "iPhone";
+                } else if (entry.agent.includes("iPad")) {
+                    entry.agent = "iPad";
+                } else if (entry.agent.includes("Windows Phone")) {
+                    entry.agent = "Windows Phone";
+                } else if (entry.agent.includes("Windows NT")) {
+                    entry.agent = "Windows NT";
+                } else if (entry.agent.includes("CrOS")) {
+                    entry.agent = "Chrome OS";
+                } else if (entry.agent.includes("Macintosh")) {
+                    entry.agent = "MacOS";
+                } else if (entry.agent.includes("Ubuntu")) {
+                    entry.agent = "Ubuntu";
+                }
+
+                // Merge IPs into one entry and get a count of each
                 var ip = entry.ip;
                 if (!ipData[ip]) {
                     ipData[ip] = {
