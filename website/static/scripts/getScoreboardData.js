@@ -8,7 +8,8 @@ var apiUrl = 'api/requests';
 var geoIpUrlPrefix = 'https://api.geoiplookup.net/?query=';
 var geoIpUrlSuffix = '&json=true';
 
-var sortDirection = false;
+var gotData = null;
+var sortDirection = true;
 
 //getRequestCountryCode();
 fetchDataAndInject();
@@ -34,8 +35,9 @@ function getRequestCountryCode() {
 
 async function fetchDataAndInject() {
     try {
-        var gotData = await getScoreboardData();
+        await getScoreboardData();
         //console.log("Data: ", gotData);
+        //console.log("Fetch: ", gotData);
         injectScoreboardData(gotData);
     } catch (error) {
         console.error('Error: ', error);
@@ -87,7 +89,8 @@ async function getScoreboardData() {
             }
         });
 
-        return ipData;
+        gotData = ipData;
+        //console.log("Get: ", gotData);
 
     } catch (error) {
         throw error;
@@ -125,10 +128,44 @@ function injectScoreboardData(data) {
 }
 
 function sortColumn(column) {
-    const dataType = typeof column;
-    console.log("Clicked!")
+    var dataType;
+    if (column.includes("ip")) {
+        var gotDataKeys = Object.keys(gotData);
+        dataType = typeof gotDataKeys[0];
+    } else {
+        var gotDataValues = Object.values(gotData);
+        dataType = typeof gotDataValues[0][column];
+    }
+    
+    //console.log("values: ", gotDataValues);
+    
+    //const dataType = typeof gotDataValues[0][column];
+    console.log("Type: ", dataType)
     
     sortDirection = !sortDirection;
 
-    //switch()
+    switch(dataType) {
+        case "number":
+            sortNumberColumn(column);
+    }
 }
+
+function sortNumberColumn(column) {
+    var sortedData = Object.keys(gotData).sort((a, b) => {
+        return sortDirection ? a[column] - b[column] : b[column] - a[column];
+    });
+
+    var newData = {};
+    sortedData.forEach(entry => {
+        newData[entry.ip] = entry;
+    });
+
+    injectScoreboardData(newData);
+}
+
+function sortStringColumn(column) {
+    //
+}
+
+
+//console.log(gotData);
