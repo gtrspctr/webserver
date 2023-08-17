@@ -9,6 +9,7 @@ var geoIpUrlPrefix = 'https://api.geoiplookup.net/?query=';
 var geoIpUrlSuffix = '&json=true';
 
 var gotData = null;
+var ipData = null;
 var sortDirection = true;
 
 //getRequestCountryCode();
@@ -36,7 +37,7 @@ function getRequestCountryCode() {
 async function fetchDataAndInject() {
     try {
         await getScoreboardData();
-        //console.log("Data: ", gotData);
+        console.log("Data: ", gotData);
         //console.log("Fetch: ", gotData);
         injectScoreboardData(gotData);
     } catch (error) {
@@ -49,7 +50,8 @@ async function getScoreboardData() {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        var ipData = {};
+        gotData = data;
+        ipData = {};
 
         data.forEach(entry => {
             // Parse agent and replace with smaller description
@@ -75,6 +77,7 @@ async function getScoreboardData() {
                 entry.agent = "Ubuntu";
             }
 
+            /*
             // Merge IPs into one entry and get a count of each
             var ip = entry.ip;
             if (!ipData[ip]) {
@@ -87,9 +90,17 @@ async function getScoreboardData() {
             } else {
                 ipData[ip].count += 1;
             }
+            */
+            ipData += {
+                count: 1,
+                ip: entry.ip,
+                location: entry.location,
+                method: entry.method,
+                agent: entry.agent
+            };
         });
 
-        gotData = ipData;
+        //gotData = ipData;
         //console.log("Get: ", gotData);
 
     } catch (error) {
