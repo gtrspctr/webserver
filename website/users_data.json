@@ -1,0 +1,16 @@
+{
+    "users":{
+        "al":{
+            "first_name":"Al",
+            "last_name":"Robison",
+            "age":34,
+            "gender":"Male"
+        },
+        "juan":{
+            "first_name":"Juan",
+            "last_name":"Gomez",
+            "age":30,
+            "gender":"Male"
+        }
+    }
+}

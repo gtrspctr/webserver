@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    alrobison.com
+{% endblock %}
+
+{% block top_nav %}
+    <li>
+        <a href="/">Home</a>
+    </li>
+    <li>
+        <a class="active" href="/request_log">Request Log</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <center>
+        <h1>Here is a log of all requests that have been made to this site!</h1>
+    </center>
+    <div>
+        <table id="request_log">
+            <caption>
+                <h2>Request Log</h2>
+            </caption>
+
+            <thead>
+                <tr>
+                    <th style="text-align: center" onclick="sortColumn('ip')">IP</th>
+                    <th style="text-align: center" onclick="sortColumn('isp')">ISP</th>
+                    <th style="text-align: center" onclick="sortColumn('city')">City</th>
+                    <th style="text-align: center" onclick="sortColumn('country')">Country</th>
+                    <th style="text-align: center" onclick="sortColumn('method')">Method</th>
+                    <th style="text-align: center" onclick="sortColumn('agent')">Agent</th>
+                    <th style="text-align: center" onclick="sortColumn('created_at')">Timestamp</th>
+                </tr>
+            </thead>
+
+            <tbody id="request_log_TableBody"></tbody>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='scripts/getRequestLogData.js') }}"></script>
+{% endblock %}
