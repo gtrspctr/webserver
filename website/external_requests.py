@@ -15,5 +15,5 @@ def lookup_geoip(ip):
     else:
         result_dict["isp"] = r.json()["isp"]
         result_dict["city"] = r.json()["city"]
-        result_dict["country"] = r.json()["country"]
+        result_dict["country"] = r.json()["countrycode"]
     return result_dict
