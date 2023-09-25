@@ -121,8 +121,8 @@ header::after {
 }
 
 
-/* Table: scoreboard */
-#scoreboard {
+/* Table: request_log */
+#request_log {
     font-family: Arial, Helvetica, sans-serif;
     width: 90%;
     color: green;
@@ -131,21 +131,21 @@ header::after {
     border: 1px solid green;
 }
 
-#scoreboard caption {
+#request_log caption {
     border: 1px green;
     padding: 8px;
 }
 
-#scoreboard td, #scoreboard th {
+#request_log td, #request_log th {
     border: 1px solid green;
     padding: 8px;
 }
 
-#scoreboard tr:nth-child(even){background-color: #1d1d1d;}
+#request_log tr:nth-child(even){background-color: #1d1d1d;}
 
-#scoreboard tr:hover {background-color: #22003a}
+#request_log tr:hover {background-color: #22003a}
 
-#scoreboard th {
+#request_log th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
