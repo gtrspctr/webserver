@@ -153,7 +153,7 @@ class RemoteRequests(Resource):
         # DELETE: delete resource
 
         # Submit new request data to database
-        self.submit_info()
+        #self.submit_info()
 
         # Check if ID exists in db        
         id = RemoteRequest.query.get(req_id)
