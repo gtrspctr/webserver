@@ -1,0 +1,215 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Requests API",
+        "description": "This API exists to be able to interact with the database that logs the dozens of requests that are being made to this website every day.",
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/requests": {
+            "get": {
+                "summary": "Returns a list of information about all requests.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "ip": {
+                                    "type": "string"
+                                },
+                                "isp": {
+                                    "type": "string"
+                                },
+                                "city": {
+                                    "type": "string"
+                                },
+                                "country": {
+                                    "type": "string"
+                                },
+                                "method": {
+                                    "type": "string"
+                                },
+                                "agent": {
+                                    "type": "string"
+                                },
+                                "created_at": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/requests/{existing_id}": {
+            "get": {
+                "summary": "Returns information of a specific request ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "The ID of the request.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "format": "int64"
+                        }
+                    }
+                ],                    
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "ip": {
+                                    "type": "string"
+                                },
+                                "isp": {
+                                    "type": "string"
+                                },
+                                "city": {
+                                    "type": "string"
+                                },
+                                "country": {
+                                    "type": "string"
+                                },
+                                "method": {
+                                    "type": "string"
+                                },
+                                "agent": {
+                                    "type": "string"
+                                },
+                                "created_at": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/requests/asdf": {
+            "post": {
+                "summary": "Creates new 'fake' request ID.",
+                "parameters": [
+                    {
+                        "name": "ip",
+                        "description": "The requestor's IP address.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isp",
+                        "description": "The requestor's ISP.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "description": "The city of the requesting IP.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "description": "The country of the requesting IP.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "description": "The request method. (i.e., GET, POST, PUT, PATCH, DELETE)",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "agent",
+                        "description": "The agent of the requester.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],                    
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "ip": {
+                                    "type": "string"
+                                },
+                                "isp": {
+                                    "type": "string"
+                                },
+                                "city": {
+                                    "type": "string"
+                                },
+                                "country": {
+                                    "type": "string"
+                                },
+                                "method": {
+                                    "type": "string"
+                                },
+                                "agent": {
+                                    "type": "string"
+                                },
+                                "created_at": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
