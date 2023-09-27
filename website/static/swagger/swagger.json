@@ -246,63 +246,45 @@
                 "summary": "Replace all information of a specific request.",
                 "parameters": [
                     {
-                        "name": "ip",
-                        "description": "The requestor's IP address.",
+                        "name": "id",
                         "in": "path",
+                        "description": "The ID of the request.",
                         "required": "true",
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "isp",
-                        "description": "The requestor's ISP.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "city",
-                        "description": "The city of the requesting IP.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "country",
-                        "description": "The country of the requesting IP.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "method",
-                        "description": "The request method. (i.e., GET, POST, PUT, PATCH, DELETE)",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "agent",
-                        "description": "The agent of the requester.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
-                ],                    
-                "produces": [
-                    "application/json"
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "ip": {
+                                        "type": "string"
+                                    },
+                                    "isp": {
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "country": {
+                                        "type": "string"
+                                    },
+                                    "method": {
+                                        "type": "string"
+                                    },
+                                    "agent": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -344,6 +326,15 @@
                 ],
                 "summary": "Update specific information on a specific request.",
                 "parameters": [
+                    {
+                        "name": "id",
+                        "description": "The ID of the request.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "ip",
                         "description": "The requestor's IP address.",
@@ -436,6 +427,17 @@
                     "DELETE"
                 ],
                 "summary": "Remove a specific request.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "The ID of the request.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "produces": [
                     "application/json"
                 ],

@@ -4,6 +4,8 @@ Flask
 Flask-RESTful
 Flask-SQLAlchemy
 flask_login
+flask_swagger
+flask_swagger_ui
 itsdangerous
 Jinja2
 MarkupSafe

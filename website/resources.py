@@ -2,7 +2,7 @@ from . import db
 from .models import RemoteRequest
 from .external_requests import lookup_geoip
 from flask_restful import Resource, reqparse
-from flask import request
+from flask import request, jsonify
 from sqlalchemy.sql import func
 
 class RemoteRequests(Resource):
@@ -53,6 +53,7 @@ class RemoteRequests(Resource):
         parser.add_argument("method", type=str, required=True, help="Enter method as a string.")
         parser.add_argument("agent", type=str, required=True, help="Enter agent as a string.")
         args = parser.parse_args()
+        print(args)
 
         # Submit new request data to database
         self.submit_info()
@@ -119,6 +120,7 @@ class RemoteRequests(Resource):
             parser.add_argument("method", type=str, required=False, help="Enter method as a string.")
             parser.add_argument("agent", type=str, required=False, help="Enter agent as a string.")
             args = parser.parse_args()
+            print(args)
 
             # Submit new request data to database
             self.submit_info()
