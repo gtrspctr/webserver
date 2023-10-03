@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask_swagger import swagger
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from os import path
