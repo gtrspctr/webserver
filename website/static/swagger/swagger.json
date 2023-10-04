@@ -3,10 +3,7 @@
     "info": {
         "title": "Requests API",
         "description": "This API exists to be able to interact with the database that logs the dozens of requests that are being made to this website every day.",
-        "version": "1.0",
-        "x-logo": {
-            "url": "/static/images/logo.png"
-        }
+        "version": "1.0"
     },
     "basePath": "/api",
     "schemes": [
