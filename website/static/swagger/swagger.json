@@ -1,9 +1,12 @@
 {
-    "openapi": "3.0.0",
+    "openapi": "3.0.3",
     "info": {
         "title": "Requests API",
         "description": "This API exists to be able to interact with the database that logs the dozens of requests that are being made to this website every day.",
-        "version": "1.0"
+        "version": "1.0",
+        "x-logo": {
+            "url": "/static/images/logo.png"
+        }
     },
     "basePath": "/api",
     "schemes": [
@@ -88,97 +91,25 @@
                 ],
                 "summary": "Creates new 'fake' request ID.",
                 "description": "Creates new 'fake' request ID.",
-                "parameters": [
-                    {
-                        "name": "ip",
-                        "description": "The requestor's IP address.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "isp",
-                        "description": "The requestor's ISP.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "city",
-                        "description": "The city of the requesting IP.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "country",
-                        "description": "The country of the requesting IP.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "method",
-                        "description": "The request method. (i.e., GET, POST, PUT, PATCH, DELETE)",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "agent",
-                        "description": "The agent of the requester.",
-                        "in": "path",
-                        "required": "true",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],                    
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
-                                "ip": {
-                                    "type": "string"
-                                },
-                                "isp": {
-                                    "type": "string"
-                                },
-                                "city": {
-                                    "type": "string"
-                                },
-                                "country": {
-                                    "type": "string"
-                                },
-                                "method": {
-                                    "type": "string"
-                                },
-                                "agent": {
-                                    "type": "string"
-                                },
-                                "created_at": {
-                                    "type": "string"
-                                }
+                "requestBody": {
+                    "description": "Creates new 'fake' request ID.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
                             }
                         }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success"
                     }
                 }
             }
@@ -206,34 +137,12 @@
                     "application/json"
                 ],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Success",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
-                                "ip": {
-                                    "type": "string"
-                                },
-                                "isp": {
-                                    "type": "string"
-                                },
-                                "city": {
-                                    "type": "string"
-                                },
-                                "country": {
-                                    "type": "string"
-                                },
-                                "method": {
-                                    "type": "string"
-                                },
-                                "agent": {
-                                    "type": "string"
-                                },
-                                "created_at": {
-                                    "type": "string"
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Requests_GET"
                                 }
                             }
                         }
@@ -258,66 +167,23 @@
                     }
                 ],
                 "requestBody": {
+                    "description": "Replace all information of a specific request.",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "ip": {
-                                        "type": "string"
-                                    },
-                                    "isp": {
-                                        "type": "string"
-                                    },
-                                    "city": {
-                                        "type": "string"
-                                    },
-                                    "country": {
-                                        "type": "string"
-                                    },
-                                    "method": {
-                                        "type": "string"
-                                    },
-                                    "agent": {
-                                        "type": "string"
-                                    }
-                                }
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
-                                "ip": {
-                                    "type": "string"
-                                },
-                                "isp": {
-                                    "type": "string"
-                                },
-                                "city": {
-                                    "type": "string"
-                                },
-                                "country": {
-                                    "type": "string"
-                                },
-                                "method": {
-                                    "type": "string"
-                                },
-                                "agent": {
-                                    "type": "string"
-                                },
-                                "created_at": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                        "description": "Success"
                     }
                 }
             },
@@ -338,41 +204,24 @@
                         }
                     }
                 ],                    
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
-                                "ip": {
-                                    "type": "string"
-                                },
-                                "isp": {
-                                    "type": "string"
-                                },
-                                "city": {
-                                    "type": "string"
-                                },
-                                "country": {
-                                    "type": "string"
-                                },
-                                "method": {
-                                    "type": "string"
-                                },
-                                "agent": {
-                                    "type": "string"
-                                },
-                                "created_at": {
-                                    "type": "string"
-                                }
+                "requestBody": {
+                    "description": "Update specific information on a specific request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Requests_PATCH"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Requests_PATCH"
                             }
                         }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
                     }
                 }
             },
@@ -392,12 +241,9 @@
                         }
                     }
                 ],
-                "produces": [
-                    "application/json"
-                ],
                 "responses": {
                     "200": {
-                        "description": "'message': 'ID {id} deleted.'"
+                        "description": "Success"
                     }
                 }
             }
@@ -405,33 +251,19 @@
     },
     "components": {
         "schemas": {
-            "Requests (GET)": {
+            "Requests_GET": {
                 "type": "object",
                 "properties": {
                     "id": {
-                        "type": "integer",
-                        "example": "99"
-                    }
-                }
-            },
-            "Requests (POST and PUT)": {
-                "required": [
-                    "ip",
-                    "isp",
-                    "city",
-                    "country",
-                    "method",
-                    "agent"
-                ],
-                "type": "object",
-                "properties": {
+                        "type": "integer"
+                    },
                     "ip": {
                         "type": "string",
                         "example": "123.45.67.89"
                     },
                     "isp": {
                         "type": "string",
-                        "example": "WhoWhatWhenWhere Wireless"
+                        "example": "WhoWhatWhenWhereWireless"
                     },
                     "city": {
                         "type": "string",
@@ -451,10 +283,70 @@
                     }
                 }
             },
-            "Requests (PATCH)": {
+            "Requests_POST_and_PUT": {
+                "required": [
+                    "ip",
+                    "isp",
+                    "city",
+                    "country",
+                    "method",
+                    "agent"
+                ],
                 "type": "object",
                 "properties": {
-                    
+                    "ip": {
+                        "type": "string",
+                        "example": "123.45.67.89"
+                    },
+                    "isp": {
+                        "type": "string",
+                        "example": "WhoWhatWhenWhereWireless"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "New Chicageapolis"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "UZ"
+                    },
+                    "method": {
+                        "type": "string",
+                        "example": "GET"
+                    },
+                    "agent": {
+                        "type": "string",
+                        "example": "curl1.2.3"
+                    }
+                }
+            },
+            "Requests_PATCH": {
+                "type": "object",
+                "properties": {
+                    "ip": {
+                        "type": "string",
+                        "example": "123.45.67.89"
+                    },
+                    "isp": {
+                        "type": "string",
+                        "example": "WhoWhatWhenWhereWireless"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "New Chicageapolis"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "UZ"
+                    },
+                    "method": {
+                        "type": "string",
+                        "example": "GET"
+                    },
+                    "agent": {
+                        "type": "string",
+                        "example": "curl1.2.3"
+                    }
                 }
             }
         }
