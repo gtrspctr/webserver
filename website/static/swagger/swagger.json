@@ -52,7 +52,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Success",
+                        "description": "Successful request returns a list of all requests as json objects.",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -109,7 +109,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Success"
+                        "description": "Successful request submits json object into database."
                     }
                 }
             }
@@ -146,6 +146,9 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Requested ID not found in database."
                     }
                 }
             },
@@ -183,7 +186,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Successful request replaces all properties on specific ID."
+                    },
+                    "404": {
+                        "description": "Requested ID not found in database."
                     }
                 }
             },
@@ -221,7 +227,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Successful request updates specific properties on specific ID."
+                    },
+                    "404": {
+                        "description": "Requested ID not found in database."
                     }
                 }
             },
@@ -243,7 +252,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Successful request deletes a specific database entry."
                     }
                 }
             }
