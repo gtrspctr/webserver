@@ -21,7 +21,6 @@ def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "alfjasghowrbn489h34g498h9*&H34glk%*Yg4"
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_path)
-    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
     db.init_app(app)
 
