@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask_swagger_ui import get_swaggerui_blueprint
+#from flask_swagger_ui import get_swaggerui_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 import json
@@ -34,22 +34,22 @@ def create_app():
         db.create_all()
 
     # Create Swagger documentation
-    @app.route("/swagger.json")
-    def spec():
-        with open(swagger_path, 'r') as f:
-            return jsonify(json.load(f))
-        
-    
-    SWAGGER_URL = "/apidocs"
-    API_URL = "/swagger.json"
-    swaggerui_blueprint = get_swaggerui_blueprint(
-        SWAGGER_URL,
-        API_URL,
-        config={
-            "app_name": "Requests API"
-        }
-    )
-    app.register_blueprint(swaggerui_blueprint)
+    #@app.route("/swagger.json")
+    #def spec():
+    #    with open(swagger_path, 'r') as f:
+    #        return jsonify(json.load(f))
+    #    
+    #
+    #SWAGGER_URL = "/apidocs"
+    #API_URL = "/swagger.json"
+    #swaggerui_blueprint = get_swaggerui_blueprint(
+    #    SWAGGER_URL,
+    #    API_URL,
+    #    config={
+    #        "app_name": "Requests API"
+    #    }
+    #)
+    #app.register_blueprint(swaggerui_blueprint)
     
     # Import and register API
     from .api import api
