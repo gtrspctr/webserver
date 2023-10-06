@@ -48,7 +48,7 @@ async function getRequestLogData() {
                 entry.agent = "Ubuntu";
             }*/
             if (entry.agent.includes("/Command/Base64/")) {
-                entry.agent = "[Cut. Some hacker bullshit.]"
+                entry.agent = "[REDACTED]"
             }
         });
 
