@@ -1,32 +1,19 @@
-{% extends "base.html" %}
-
-{% block title %}
-    Home | alrobison.com
-{% endblock %}
-
-{% block optional_header %}
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>API Docs | alrobison.com</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/swagger-ui.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/swagger-index.css') }}" />
-{% endblock %}
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon-16x16.png') }}" sizes="16x16" />
+  </head>
 
-{% block top_nav %}
-    <li>
-        <a href="/">Home</a>
-    </li>
-    <li>
-        <a href="/request_log">Request Log</a>
-    </li>
-    <li>
-        <a class="active" href="/apidocs"><u>API</u></a>
-    </li>
-    <li>
-        <a href="/json">JSON</a>
-    </li>
-{% endblock %}
-
-{% block content %}
+  <body>
     <div id="swagger-ui" openapi-url="{{ url_for('static', filename='swagger/swagger.json') }}"></div>
     <script src="{{ url_for('static', filename='scripts/swagger-ui-bundle.js') }}" charset="UTF-8"> </script>
     <script src="{{ url_for('static', filename='scripts/swagger-ui-standalone-preset.js') }}" charset="UTF-8"> </script>
     <script src="{{ url_for('static', filename='scripts/swagger-initializer.js') }}" charset="UTF-8"> </script>
-{% endblock %}
+  </body>
+</html>
