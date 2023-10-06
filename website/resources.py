@@ -2,7 +2,7 @@ from . import db
 from .models import RemoteRequest
 from .external_requests import lookup_geoip
 from flask_restful import Resource, reqparse
-from flask import request
+from flask import request, jsonify
 from sqlalchemy.sql import func
 
 class RemoteRequests(Resource):
@@ -53,6 +53,7 @@ class RemoteRequests(Resource):
         parser.add_argument("method", type=str, required=True, help="Enter method as a string.")
         parser.add_argument("agent", type=str, required=True, help="Enter agent as a string.")
         args = parser.parse_args()
+        print(args)
 
         # Submit new request data to database
         self.submit_info()
@@ -79,30 +80,24 @@ class RemoteRequests(Resource):
         if id:
             # ID exists. Parse data.
             parser = reqparse.RequestParser()
-            parser.add_argument("ip", type=str, required=False, help="Enter IP as a string.")
-            parser.add_argument("isp", type=str, required=False, help="Enter ISP as a string.")
-            parser.add_argument("city", type=str, required=False, help="Enter city as a string.")
-            parser.add_argument("country", type=str, required=False, help="Enter country as a string.")
-            parser.add_argument("method", type=str, required=False, help="Enter method as a string.")
-            parser.add_argument("agent", type=str, required=False, help="Enter agent as a string.")
+            parser.add_argument("ip", type=str, required=True, help="Enter IP as a string.")
+            parser.add_argument("isp", type=str, required=True, help="Enter ISP as a string.")
+            parser.add_argument("city", type=str, required=True, help="Enter city as a string.")
+            parser.add_argument("country", type=str, required=True, help="Enter country as a string.")
+            parser.add_argument("method", type=str, required=True, help="Enter method as a string.")
+            parser.add_argument("agent", type=str, required=True, help="Enter agent as a string.")
             args = parser.parse_args()
 
             # Submit new request data to database
             self.submit_info()
 
             # Commit to db
-            if args.get("ip"):
-                id.ip = args["ip"]
-            if args.get("isp"):
-                id.isp = args["isp"]
-            if args.get("city"):
-                id.city = args["city"]
-            if args.get("country"):
-                id.country = args["country"]
-            if args.get("method"):
-                id.method = args["method"]
-            if args.get("agent"):
-                id.agent = args["agent"]
+            id.ip = args["ip"]
+            id.isp = args["isp"]
+            id.city = args["city"]
+            id.country = args["country"]
+            id.method = args["method"]
+            id.agent = args["agent"]
             id.created_at = func.now()
             db.session.commit()
 
@@ -125,6 +120,7 @@ class RemoteRequests(Resource):
             parser.add_argument("method", type=str, required=False, help="Enter method as a string.")
             parser.add_argument("agent", type=str, required=False, help="Enter agent as a string.")
             args = parser.parse_args()
+            print(args)
 
             # Submit new request data to database
             self.submit_info()

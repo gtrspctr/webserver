@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home | alrobison.com
+{% endblock %}
+
+{% block optional_header %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/swagger-ui.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/swagger-index.css') }}" />
+{% endblock %}
+
+{% block top_nav %}
+    <li>
+        <a href="/">Home</a>
+    </li>
+    <li>
+        <a href="/request_log">Request Log</a>
+    </li>
+    <li>
+        <a class="active" href="/apidocs"><u>API</u></a>
+    </li>
+    <li>
+        <a href="/json">JSON</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div id="swagger-ui" openapi-url="{{ url_for('static', filename='swagger/swagger.json') }}"></div>
+    <script src="{{ url_for('static', filename='scripts/swagger-ui-bundle.js') }}" charset="UTF-8"> </script>
+    <script src="{{ url_for('static', filename='scripts/swagger-ui-standalone-preset.js') }}" charset="UTF-8"> </script>
+    <script src="{{ url_for('static', filename='scripts/swagger-initializer.js') }}" charset="UTF-8"> </script>
+{% endblock %}

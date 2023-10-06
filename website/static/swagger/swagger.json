@@ -1,0 +1,360 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Requests API",
+        "description": "This API exists to be able to interact with the database that logs the dozens of requests that are being made to this website every day.",
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "GET",
+            "description": "Query the request logs."
+        },
+        {
+            "name": "POST",
+            "description": "Create a new 'fake' request."
+        },
+        {
+            "name": "PUT",
+            "description": "Replace all information on a specific request."
+        },
+        {
+            "name": "PATCH",
+            "description": "Update specific information on a specific request."
+        },
+        {
+            "name": "DELETE",
+            "description": "Remove a specific request."
+        }
+    ],
+    "paths": {
+        "/api/requests": {
+            "get": {
+                "tags": [
+                    "GET"
+                ],
+                "summary": "Returns a list of information about all requests.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful request returns a list of all requests as json objects.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "ip": {
+                                    "type": "string"
+                                },
+                                "isp": {
+                                    "type": "string"
+                                },
+                                "city": {
+                                    "type": "string"
+                                },
+                                "country": {
+                                    "type": "string"
+                                },
+                                "method": {
+                                    "type": "string"
+                                },
+                                "agent": {
+                                    "type": "string"
+                                },
+                                "created_at": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "POST"
+                ],
+                "summary": "Creates new 'fake' request ID.",
+                "description": "Creates new 'fake' request ID.",
+                "requestBody": {
+                    "description": "Creates new 'fake' request ID.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful request submits json object into database."
+                    }
+                }
+            }
+        },
+        "/api/requests/{id}": {
+            "get": {
+                "tags": [
+                    "GET"
+                ],
+                "summary": "Returns information of a specific request ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "The ID of the request.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "format": "int64"
+                        }
+                    }
+                ],                    
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Requests_GET"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Requested ID not found in database."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PUT"
+                ],
+                "summary": "Replace all information on a specific request.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the request.",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Replace all information on a specific request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Requests_POST_and_PUT"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful request replaces all properties on specific ID."
+                    },
+                    "404": {
+                        "description": "Requested ID not found in database."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "PATCH"
+                ],
+                "summary": "Update specific information on a specific request.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the request.",
+                        "required": "true",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],                    
+                "requestBody": {
+                    "description": "Update specific information on a specific request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Requests_PATCH"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref":"#/components/schemas/Requests_PATCH"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful request updates specific properties on specific ID."
+                    },
+                    "404": {
+                        "description": "Requested ID not found in database."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "DELETE"
+                ],
+                "summary": "Remove a specific request.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "The ID of the request.",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful request deletes a specific database entry."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Requests_GET": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "ip": {
+                        "type": "string",
+                        "example": "123.45.67.89"
+                    },
+                    "isp": {
+                        "type": "string",
+                        "example": "WhoWhatWhenWhereWireless"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "New Chicageapolis"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "UZ"
+                    },
+                    "method": {
+                        "type": "string",
+                        "example": "GET"
+                    },
+                    "agent": {
+                        "type": "string",
+                        "example": "curl1.2.3"
+                    }
+                }
+            },
+            "Requests_POST_and_PUT": {
+                "required": [
+                    "ip",
+                    "isp",
+                    "city",
+                    "country",
+                    "method",
+                    "agent"
+                ],
+                "type": "object",
+                "properties": {
+                    "ip": {
+                        "type": "string",
+                        "example": "123.45.67.89"
+                    },
+                    "isp": {
+                        "type": "string",
+                        "example": "WhoWhatWhenWhereWireless"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "New Chicageapolis"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "UZ"
+                    },
+                    "method": {
+                        "type": "string",
+                        "example": "GET"
+                    },
+                    "agent": {
+                        "type": "string",
+                        "example": "curl1.2.3"
+                    }
+                }
+            },
+            "Requests_PATCH": {
+                "type": "object",
+                "properties": {
+                    "ip": {
+                        "type": "string",
+                        "example": "123.45.67.89"
+                    },
+                    "isp": {
+                        "type": "string",
+                        "example": "WhoWhatWhenWhereWireless"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "New Chicageapolis"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "UZ"
+                    },
+                    "method": {
+                        "type": "string",
+                        "example": "GET"
+                    },
+                    "agent": {
+                        "type": "string",
+                        "example": "curl1.2.3"
+                    }
+                }
+            }
+        }
+    }
+}

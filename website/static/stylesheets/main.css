@@ -141,6 +141,13 @@ header::after {
     padding: 8px;
 }
 
+#request_log td {
+    text-overflow: ellipsis;
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
 #request_log tr:nth-child(even){background-color: #1d1d1d;}
 
 #request_log tr:hover {background-color: #22003a}
@@ -151,4 +158,9 @@ header::after {
     text-align: left;
     background-color: #22003a;
     color: white;
+}
+
+#request_log th:hover {
+    color: green;
+    cursor: pointer;
 }

@@ -25,6 +25,7 @@ async function getRequestLogData() {
 
         data.forEach(entry => {
             // Parse agent and replace with smaller description
+            /*
             if (entry.agent.includes("Googlebot")) {
                 entry.agent = "Googlebot";
             } else if (entry.agent.includes("HeadlessChrome")) {
@@ -45,6 +46,9 @@ async function getRequestLogData() {
                 entry.agent = "MacOS";
             } else if (entry.agent.includes("Ubuntu")) {
                 entry.agent = "Ubuntu";
+            }*/
+            if (entry.agent.includes("/Command/Base64/")) {
+                entry.agent = "[REDACTED]"
             }
         });
 

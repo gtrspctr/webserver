@@ -28,6 +28,10 @@ def home():
 def score():
     return render_template("request_log.html")
 
+@views.route("/apidocs")
+def api_docs():
+    return render_template("swaggerui.html")
+
 @views.route("/json")
 def get_json():
     ids = RemoteRequest.query.all()
