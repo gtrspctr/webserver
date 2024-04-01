@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, Response
 from sqlalchemy.sql import func
+from datetime import datetime
 from .models import RemoteRequest
 from .external_requests import lookup_geoip
 from . import db

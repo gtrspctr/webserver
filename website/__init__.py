@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_moment import Moment
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_sqlalchemy import SQLAlchemy
 from os import path
@@ -22,6 +23,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_path)
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
     db.init_app(app)
+    moment = Moment(app)
 
     # Import and register blueprints
     from .views import views
