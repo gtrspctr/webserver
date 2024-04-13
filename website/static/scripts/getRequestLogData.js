@@ -4,13 +4,22 @@ var gotData = null;
 var sortDirection = true;
 var sortedColumn = null;
 
+var currentPage = 1;
+var pageSize = 10; // Number of rows per page
+var totalRows = 0;
+var totalPages = 0;
+
 fetchDataAndInject();
 
 async function fetchDataAndInject() {
     try {
         await getRequestLogData();
         console.log("Data: ", gotData);
-        injectRequestLogData(gotData);
+        //injectRequestLogData(gotData);
+        totalRows = gotData.length;
+        totalPages = Math.ceil(totalRows / pageSize);
+        renderPagination();
+        renderTableData(currentPage);
     } catch (error) {
         console.error('Error: ', error);
     }
@@ -57,6 +66,13 @@ async function getRequestLogData() {
     }
 }
 
+function renderTableData(page) {
+    const start = (page -1) * pageSize;
+    const end = start + pageSize;
+    const pageData = gotData.slice(start, end);
+    injectRequestLogData(pageData);
+}
+
 function injectRequestLogData(data) {
     const request_log_TableBody = document.getElementById('request_log_TableBody')
     let dataHtml = '';
@@ -76,6 +92,41 @@ function injectRequestLogData(data) {
     request_log_TableBody.innerHTML = dataHtml;
 }
 
+function renderPagination() {
+    const paginationContainer = document.getElementById('pagination-container');
+    let paginationHtml = '';
+
+    // Calculate the number of pages to show before and after the current page
+    const numPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(numPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + numPagesToShow - 1);
+
+    const pagesToShow = endPage - startPage + 1;
+    if (pagesToShow < numPagesToShow) {
+        if (startPage === 1) {
+            endPage = Math.min(totalPages, startPage + numPagesToShow - 1);
+        } else if (endPage === totalPages) {
+            startPage = Math.max(1, endPage - numPagesToShow + 1);
+        }
+    }
+
+    // Adjust startPage again if necessary
+    startPage = Math.max(1, endPage - numPagesToShow + 1);
+
+    // Start Button
+    paginationHtml += `<button onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>First</button>`;
+
+    // Number Buttons
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHtml += `<button onclick="goToPage(${i})" ${currentPage === i ? 'disabled' : ''}>${i}</button>`;
+    }
+
+    // Last Button
+    paginationHtml += `<button onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last</button>`;
+
+    paginationContainer.innerHTML = paginationHtml;
+}
+
 function sortColumn(column) {
     var dataType = typeof Object.values(gotData)[0][column];
     console.log("Type: ", dataType);
@@ -87,7 +138,11 @@ function sortColumn(column) {
         sortDirection = true;
         sortedColumn = column;
     }
-    
+
+    // Store the current page before sorting
+    const currentPageBeforeSort = currentPage;
+
+    // Sort the entire dataset
     sortedData = gotData.sort(function (a, b) {
         var valueA = a[column];
         var valueB = b[column];
@@ -95,7 +150,14 @@ function sortColumn(column) {
         return sortDirection
             ? valueA.localeCompare(valueB, undefined, { sensitivity: 'base' })
             : valueB.localeCompare(valueA, undefined, { sensitivity: 'base' })
-    })
+    });
 
-    injectRequestLogData(sortedData)
+    // Render the table data for the current page after sorting
+    renderTableData(currentPageBeforeSort);
+}
+
+function goToPage(page) {
+    currentPage = page;
+    renderTableData(currentPage);
+    renderPagination();
 }
