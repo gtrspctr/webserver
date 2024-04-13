@@ -7,12 +7,52 @@
 {% block content %}
     <div id="title">
         <center>
-            <h1>Botalog - The Bot Catalog</h1>
+            <h1>Creepy, Crawly Bots</h1>
         </center>
     </div>
     <div id="body">
         <p>
-            Ever wonder what bots are looking at your webpage? Here's a database full of them.
+            Over my <i>meager</i> amount of time spent tinkering with web design,
+            I've noticed an alarming amount of web requests hit my servers. The first
+            time I noticed it, it made me feel contaminated. I felt uneasy and
+            apprehensive. I thought a hacker was trying to gain access to my server!
+            But really, nothing ever happened.
+        </p>
+        <p>
+            Later, I noticed a second request come in - This time from a different IP
+            address. Tentatively, I looked up the IP's geolocation. Well, I don't know 
+            what I expected to see, but it turned out to be a typical ISP in an ordinary,
+            nondescript city.
+        </p>
+        <p>
+            Huh. How about that.
+        </p>
+        <p>
+            I had heard that bots are constantly scanning the internet - The emphasis
+            always being that they are looking for open ports and vulnerabilities to
+            take advantage of. And yeah, there definitely are those. But it turns out
+            there are so many more bots! The more I saw, the more I was like, "What
+            the heck <i>are</i> all these requests? And why?"
+        </p>
+        <p>
+            Well, I don't have the answer for every request. But I decided to start
+            logging them in a database so I can display them in a nice, visible list.
+        </p>
+        <p>
+            So that's what this site is. It basically only exists to see what requests
+            it receives, and it stores those requests in a table for everyone to see!
+            Head on over to the '<a href="/request_log">Requests Log</a>' page to see
+            them. The log shows the IP, the ISP it belongs to, the city, the country,
+            the method (what <i>kind</i> of request), the agent (what type of device
+            or software made the request), and the timestamp. Thanks to
+            <a href="https://geoiplookup.net">GeoIPLookup.net</a> for the geolocation
+            info.
+        </p>
+        <p>
+            Oh. And I also <a href="/apidocs">made an API</a> where you can
+            query/create/manipulate the data, because I wanted to learn how that worked.
+            Do whatever you want with it, I don't care. There will always be more bot
+            requests.
         </p>
     </div>
 {% endblock %}
