@@ -7,28 +7,57 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}" />
+        {{ moment.include_moment() }}
         {% block optional_header %}{% endblock %}
     </head>
     <body>
         <div id="page_container">
-            <header>
-                <a href="/">
-                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" width=80 height=80 />
-                </a>
-                <nav class="top_nav">
-                    <ul>
-                        {% block top_nav %}{% endblock %}
-                    </ul>
-                </nav>
-            </header>
+            <div id="header">
+                <header>
+                    <a href="/">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" width=80 height=80 />
+                    </a>
+                    <nav class="top_nav">
+                        <ul>
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/request_log">Request Log</a>
+                            </li>
+                            <li>
+                                <a href="/apidocs">API</a>
+                            </li>
+                            <li>
+                                <a href="/json">JSON</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+            </div>
+
             <div id="top_splitter">
             </div>
+
             <div id="content_wrap">
                 {% block content %}{% endblock %}
             </div>
-            <footer id="footer">
-                &copy; Copyright 2023 by Al Robison.
-            </footer>
+
+            <div id="footer">
+                <footer id="footer">
+                    <div class="footer_links">
+                        <ul>
+                            <li>
+                                <a href="https://github.com/gtrspctr">Github</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="footer_hr">
+                    <div class="footer_copyright">
+                        &copy; Copyright {{ moment().format("YYYY") }} by Al Robison.&nbsp
+                    </div>
+                </footer>
+            </div>
         </div>
     </body>
 </html>

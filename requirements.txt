@@ -4,6 +4,7 @@ Flask
 Flask-RESTful
 Flask-SQLAlchemy
 flask_login
+flask-moment
 itsdangerous
 Jinja2
 MarkupSafe

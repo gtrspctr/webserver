@@ -120,6 +120,13 @@ header::after {
     margin-right: auto;
 }
 
+.footer_links {
+    text-align: center;
+}
+
+.footer_links ul {
+    list-style: none;
+}
 
 /* Table: request_log */
 #request_log {
@@ -163,4 +170,36 @@ header::after {
 #request_log th:hover {
     color: green;
     cursor: pointer;
+}
+
+/* Pagination container */
+#pagination-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Pagination buttons */
+#pagination-container button {
+    width: 60px;
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: green;
+    color: #fff;
+    border: #22003a;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#pagination-container button:hover {
+    background-color: #22003a;
+}
+
+/* Disabled pagination button */
+#pagination-container button:disabled {
+    background-color: #1d1d1d;
+    cursor: not-allowed;
 }
