@@ -40,10 +40,12 @@ header::after {
 .logo {
     float: left;
     padding: 10px 10px;
+    border-radius: 25%;
 }
 
 .top_nav {
     overflow: hidden;
+    vertical-align: middle;
 }
 
 .top_nav ul {
@@ -103,29 +105,62 @@ header::after {
 
 /* Container: content_wrap  */
 #content_wrap {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 2.5rem;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+}
+
+#content_wrap a {
+    text-decoration: none;
 }
 
 
 /* Container: footer */
-#footer {
+.footer_container {
+    background-color: #1d1d1d;
     position: absolute;
     bottom: 0;
-    width: 80%;
-    height: 2.5rem;
-    padding-left: 20px;
+    left: 0;
+    width: 100%;
+}
+
+#footer {
+    /*height: 2.5rem;*/
     margin-left: auto;
     margin-right: auto;
+    /*background-color: #1d1d1d;*/
+}
+
+.footer_content {
+    /*background-color: #1d1d1d;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+}
+
+.footer_copyright {
+    text-align: left;
 }
 
 .footer_links {
-    text-align: center;
+    text-align: right;
+    /*vertical-align: middle;*/
 }
 
 .footer_links ul {
+    display: inline-block;
     list-style: none;
+}
+
+.footer_links a {
+    text-decoration: none;
+}
+
+.footer_links img {
+    border: 4px solid #000;
+    height: 32px;
+    width: 32px;
 }
 
 /* Table: request_log */
@@ -176,6 +211,7 @@ header::after {
 #pagination-container {
     margin-top: 20px;
     text-align: center;
+    padding-bottom: 40px;
 }
 
 /* Pagination buttons */
