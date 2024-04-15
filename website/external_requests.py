@@ -1,7 +1,8 @@
 import requests
 
 def lookup_geoip(ip):
-    url = "https://api.geoiplookup.net/?query=" + str(ip) + "&json=true"
+    url = "http://ip-api.com/json/" + str(ip)
+    print(url)
     try:
         r = requests.get(url)
         result_dict = {
@@ -16,7 +17,7 @@ def lookup_geoip(ip):
         else:
             result_dict["isp"] = r.json()["isp"]
             result_dict["city"] = r.json()["city"]
-            result_dict["country"] = r.json()["countrycode"]
+            result_dict["country"] = r.json()["countryCode"]
         return result_dict
     except:
         result_dict = {
