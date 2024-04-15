@@ -2,7 +2,6 @@ import requests
 
 def lookup_geoip(ip):
     url = "http://ip-api.com/json/" + str(ip)
-    print(url)
     try:
         r = requests.get(url)
         result_dict = {
