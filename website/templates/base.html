@@ -15,7 +15,7 @@
             <div id="header">
                 <header>
                     <a href="/">
-                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" width=80 height=80 />
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" id="logo" width=80 height=80 />
                     </a>
                     <nav class="top_nav">
                         <ul>
@@ -42,19 +42,20 @@
             <div id="content_wrap">
                 {% block content %}{% endblock %}
             </div>
-
-            <div id="footer">
+        
+            <div class="footer_container">
                 <footer id="footer">
-                    <div class="footer_links">
-                        <ul>
-                            <li>
-                                <a href="https://github.com/gtrspctr">Github</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <hr class="footer_hr">
-                    <div class="footer_copyright">
-                        &copy; Copyright {{ moment().format("YYYY") }} by Al Robison.&nbsp
+                    <div class="footer_content">
+                        <span class="footer_copyright">
+                            &copy; Copyright {{ moment().format("YYYY") }} by Al Robison.&nbsp
+                        </span>
+                        <span class="footer_links">
+                            <ul>
+                                <li>
+                                    <a href="https://github.com/gtrspctr">Github</a>
+                                </li>
+                            </ul>
+                        </span>
                     </div>
                 </footer>
             </div>
