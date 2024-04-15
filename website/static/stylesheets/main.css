@@ -216,8 +216,8 @@ header::after {
 
 /* Pagination buttons */
 #pagination-container button {
-    width: 60px;
-    padding: 8px 16px;
+    width: 100px;
+    padding: 8px 12px;
     margin: 0 5px;
     background-color: green;
     color: #fff;
