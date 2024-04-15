@@ -5,7 +5,7 @@ var sortDirection = true;
 var sortedColumn = null;
 
 var currentPage = 1;
-var pageSize = 50; // Number of rows per page
+var pageSize = 25; // Number of rows per page
 var totalRows = 0;
 var totalPages = 0;
 
