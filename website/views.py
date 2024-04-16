@@ -7,6 +7,9 @@ from . import db
 
 views = Blueprint("views", __name__)
 
+# Index
+# When a request is made here, it looks up and stores
+# the request information
 @views.route("/")
 def home():
     request_ip = request.remote_addr
@@ -25,14 +28,17 @@ def home():
     
     return render_template("index.html")
 
+# Page that displays the data in the db
 @views.route("/request_log")
 def score():
     return render_template("request_log.html")
 
+# Swagger API documentation
 @views.route("/apidocs")
 def api_docs():
     return render_template("swaggerui.html")
 
+# Queries all data in the db and displays in plain old json format
 @views.route("/json")
 def get_json():
     ids = RemoteRequest.query.all()

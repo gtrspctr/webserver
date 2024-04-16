@@ -1,21 +1,22 @@
-var apiUrl = 'api/requests';
+var apiUrl = 'api/requests';  // Local URL for getting the data from the db
 
 var gotData = null;
 var sortDirection = true;
 var sortedColumn = null;
 
-var currentPage = 1;
-var pageSize = 25; // Number of rows per page
-var totalRows = 0;
-var totalPages = 0;
+// Table pagination settings
+var currentPage = 1;    // Which page does the table start on
+var pageSize = 25;      // How many entries are on each page
+var totalRows = 0;      // How many entries in total. Calculate later
+var totalPages = 0;     // How many pages in total. Calculate later
 
 fetchDataAndInject();
 
 async function fetchDataAndInject() {
+    // Get the requested data and calculate pagination settings
     try {
         await getRequestLogData();
-        console.log("Data: ", gotData);
-        //injectRequestLogData(gotData);
+        //console.log("Data: ", gotData);
         totalRows = gotData.length;
         totalPages = Math.ceil(totalRows / pageSize);
         renderPagination();
@@ -26,54 +27,35 @@ async function fetchDataAndInject() {
 }
 
 async function getRequestLogData() {
+    // Request data from API as json
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
         gotData = data;
 
+        // Replace any entry that includes Base64 commands because
+        // they are too long and screw up the table format!
         data.forEach(entry => {
-            // Parse agent and replace with smaller description
-            /*
-            if (entry.agent.includes("Googlebot")) {
-                entry.agent = "Googlebot";
-            } else if (entry.agent.includes("HeadlessChrome")) {
-                entry.agent = "HeadlessChrome";
-            } else if (entry.agent.includes("Android")) {
-                entry.agent = "Android";
-            } else if (entry.agent.includes("iPhone" )) {
-                entry.agent = "iPhone";
-            } else if (entry.agent.includes("iPad")) {
-                entry.agent = "iPad";
-            } else if (entry.agent.includes("Windows Phone")) {
-                entry.agent = "Windows Phone";
-            } else if (entry.agent.includes("Windows NT")) {
-                entry.agent = "Windows NT";
-            } else if (entry.agent.includes("CrOS")) {
-                entry.agent = "Chrome OS";
-            } else if (entry.agent.includes("Macintosh")) {
-                entry.agent = "MacOS";
-            } else if (entry.agent.includes("Ubuntu")) {
-                entry.agent = "Ubuntu";
-            }*/
             if (entry.agent.includes("/Command/Base64/")) {
                 entry.agent = "[REDACTED]"
             }
         });
-
     } catch (error) {
         throw error;
     }
 }
 
 function renderTableData(page) {
-    const start = (page -1) * pageSize;
+    // 
+    const start = (page - 1) * pageSize;
     const end = start + pageSize;
     const pageData = gotData.slice(start, end);
     injectRequestLogData(pageData);
 }
 
 function injectRequestLogData(data) {
+    // Inject data as HTML into the table
     const request_log_TableBody = document.getElementById('request_log_TableBody')
     let dataHtml = '';
 
@@ -93,11 +75,12 @@ function injectRequestLogData(data) {
 }
 
 function renderPagination() {
+    // Configure page buttons so the user can navigate through the table
     const paginationContainer = document.getElementById('pagination-container');
     let paginationHtml = '';
 
     // Calculate the number of pages to show before and after the current page
-    const numPagesToShow = 5;
+    const numPagesToShow = 5;  // How many page buttons should be visible at a time
     let startPage = Math.max(1, currentPage - Math.floor(numPagesToShow / 2));
     let endPage = Math.min(totalPages, startPage + numPagesToShow - 1);
 
@@ -124,13 +107,16 @@ function renderPagination() {
     // Last Button
     paginationHtml += `<button onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last</button>`;
 
+    // Inject HTML. Runs the goToPage() function to go to the page number the user clicks
     paginationContainer.innerHTML = paginationHtml;
 }
 
 function sortColumn(column) {
+    // Sorts data alphabetically based on which column is clicked
+    // Everything returned is a string, so don't need to worry about other types
     var dataType = typeof Object.values(gotData)[0][column];
-    console.log("Type: ", dataType);
-    console.log(column)
+    //console.log("Type: ", dataType);
+    //console.log(column)
 
     if (sortedColumn === column) {
         sortDirection = !sortDirection;
@@ -157,6 +143,8 @@ function sortColumn(column) {
 }
 
 function goToPage(page) {
+    // Go to the page number that was clicked and inject the appropriate data.
+    // Rerun the renderPagination() function in order to refresh the page numbers.
     currentPage = page;
     renderTableData(currentPage);
     renderPagination();

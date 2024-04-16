@@ -1,7 +1,7 @@
 from . import db
 from datetime import datetime
 
-
+# Define database model
 class RemoteRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ip = db.Column(db.String(15), nullable=False)
