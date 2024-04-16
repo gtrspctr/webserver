@@ -1,5 +1,7 @@
 import requests
 
+# Make external API request to website to gather IP
+# geolocation info
 def lookup_geoip(ip):
     url = "http://ip-api.com/json/" + str(ip)
     try:
@@ -9,6 +11,9 @@ def lookup_geoip(ip):
             "city": [],
             "country": []
         }
+
+        # If request did not return valid data, write "N/A" to the db entry
+        # Else write the real data from the API request
         if "isp" not in r.json():
             result_dict["isp"] = "N/A"
             result_dict["city"] = "N/A"
@@ -19,6 +24,7 @@ def lookup_geoip(ip):
             result_dict["country"] = r.json()["countryCode"]
         return result_dict
     except:
+        # In case of failure, write "N/A" to the db entry
         result_dict = {
             "isp": [],
             "city": [],

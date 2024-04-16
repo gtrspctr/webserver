@@ -12,6 +12,7 @@
     </head>
     <body>
         <div id="page_container">
+            <!-- Header section. Site logo and top navbar. -->
             <div id="header">
                 <header>
                     <a href="/">
@@ -36,13 +37,16 @@
                 </header>
             </div>
 
+            <!-- Container to separate the header from the main content -->
             <div id="top_splitter">
             </div>
 
+            <!-- Main page content -->
             <div id="content_wrap">
                 {% block content %}{% endblock %}
             </div>
         
+            <!-- Footer section. Copyright and links. -->
             <div class="footer_container">
                 <footer id="footer">
                     <div class="footer_content">

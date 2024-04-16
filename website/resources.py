@@ -5,8 +5,11 @@ from flask_restful import Resource, reqparse
 from flask import request, jsonify
 from sqlalchemy.sql import func
 
+# Define how to handle various API requests
 class RemoteRequests(Resource):
     def submit_info(self):
+        # If user submits any request other than GET,
+        # grab their IP information.
         request_ip = request.remote_addr
         request_geoip = lookup_geoip(request_ip)
         request_method = request.method
@@ -148,12 +151,12 @@ class RemoteRequests(Resource):
     def delete(self, req_id):
         # DELETE: delete resource
 
-        # Submit new request data to database
-        #self.submit_info()
-
         # Check if ID exists in db        
         id = RemoteRequest.query.get(req_id)
         if id:
+            # Submit new request data to database
+            self.submit_info()
+
             # ID exists. Delete data.
             db.session.delete(id)
             db.session.commit()
