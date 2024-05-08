@@ -4,13 +4,28 @@ html {
     overflow-y: scroll;
 }
 
-*,
+/* *,
 *:before,
 *:after {
     box-sizing: inherit;
-}
+} */
 
 body {
     margin: 0;
     background: black;
+}
+
+.logo {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin: 10px 10px;
+    border: 2px solid black;
+    border-radius: 25%;
+    transition: all ease-in-out 150ms;
+}
+
+.logo:hover {
+    border: 2px solid green;
+    box-shadow: 0 0 2px 1px greenyellow;
 }
