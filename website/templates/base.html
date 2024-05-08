@@ -5,6 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}" />
         {{ moment.include_moment() }}
@@ -16,7 +20,7 @@
             <div id="header">
                 <header>
                     <a href="/">
-                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" id="logo" width=80 height=80 />
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo" id="logo"/>
                     </a>
                     <nav class="top_nav">
                         <ul>
